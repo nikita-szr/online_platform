@@ -1,0 +1,11 @@
+[
+    {
+        "model": "users.customuser",
+        "pk": 1,
+        "fields": {
+            "email": "test@example.com",
+            "is_staff": false,
+            "is_active": true
+        }
+    }
+]
