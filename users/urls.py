@@ -1,14 +1,20 @@
-from django.urls import path
-from .views import UserProfileView, PaymentListView, UserRegistrationView, UserListView, UserDetailView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, PaymentViewSet, UserRegistrationViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
+router = DefaultRouter()
+router.register('users', UserViewSet, basename='user')
+router.register('payments', PaymentViewSet, basename='payment')
+router.register('register', UserRegistrationViewSet, basename='register')
+
 urlpatterns = [
-    path('profile/', UserProfileView.as_view(), name='user-profile'),
-    path('payments/', PaymentListView.as_view(), name='payment-list'),
+    path('profile/', UserViewSet.as_view({'get': 'profile'}), name='user-profile'),
+
+
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    path('users/', UserListView.as_view(), name='user-list'),
-    path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
-    path('register/', UserRegistrationView.as_view(), name='user-register'),
+
+    path('', include(router.urls)),
 ]

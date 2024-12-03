@@ -34,3 +34,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'phone', 'city', 'avatar', 'is_staff']
+        read_only_fields = ['id', 'is_staff', 'email']
