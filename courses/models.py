@@ -21,8 +21,8 @@ class Lesson(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     preview = models.ImageField(upload_to='lessons_previews/', blank=True, null=True)
-    video_url = models.URLField()
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='owned_lessons',on_delete=models.CASCADE)
+    video_url = models.URLField(blank=True, null=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='owned_lessons',on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title
