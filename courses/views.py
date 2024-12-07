@@ -7,12 +7,14 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from .paginators import CustomPageNumberPagination
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrModerator]
+    pagination_class = CustomPageNumberPagination
 
     def perform_create(self, serializer):
         if self.request.user.groups.filter(name='moderators').exists():
@@ -29,6 +31,7 @@ class LessonViewSet(viewsets.ModelViewSet):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrModerator]
+    pagination_class = CustomPageNumberPagination
 
     def perform_create(self, serializer):
         if self.request.user.groups.filter(name='moderators').exists():
