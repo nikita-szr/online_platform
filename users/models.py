@@ -50,6 +50,8 @@ class Payment(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True, related_name='payments')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
+    session_id = models.CharField(max_length=255, verbose_name='ID сессии', null=True, blank=True)
+    link_to_payment = models.URLField(max_length=400, verbose_name='ссылка на оплату', null=True, blank=True)
 
     def __str__(self):
         if self.course:

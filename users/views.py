@@ -7,6 +7,7 @@ from .serializers import (
     PaymentSerializer,
     UserRegistrationSerializer,
 )
+from users.services import create_stripe_price, create_stripe_sessions, create_stripe_product
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -33,6 +34,15 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Payment.objects.all()
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user=self.request.user)
+        product_id = create_stripe_product(payment)
+        price = create_stripe_price(payment.amount, product_id)
+        session_id, payment_link = create_stripe_sessions(price)
+        payment.session_id = session_id
+        payment.link_to_payment = payment_link
+        payment.save()
 
 
 class UserProfileView(viewsets.GenericViewSet):
