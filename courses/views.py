@@ -11,6 +11,7 @@ from .paginators import CustomPageNumberPagination
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+    """viewset for courses"""
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrModerator]
@@ -28,6 +29,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 
 class LessonViewSet(viewsets.ModelViewSet):
+    """viewset for lessons"""
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrModerator]

@@ -9,7 +9,7 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Payment
-        fields = ['id', 'amount', 'payment_date', 'payment_method', 'course', 'lesson']
+        fields = ['id', 'amount', 'date', 'payment_method', 'course', 'lesson']
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password']
+        fields = ['email', 'password']
 
     def create(self, validated_data):
         user = CustomUser.objects.create_user(
@@ -39,5 +39,5 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'phone', 'city', 'avatar', 'is_staff']
+        fields = ['id', 'email', 'phone', 'city', 'avatar', 'is_staff']
         read_only_fields = ['id', 'is_staff', 'email']

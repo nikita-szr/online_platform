@@ -10,6 +10,7 @@ from .serializers import (
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """viewset for users"""
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -25,6 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
+    """viewset for payments"""
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [permissions.IsAuthenticated, IsModerator]
@@ -34,6 +36,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
 
 class UserProfileView(viewsets.GenericViewSet):
+    """viewset for userprofile"""
     queryset = CustomUser.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -43,6 +46,7 @@ class UserProfileView(viewsets.GenericViewSet):
 
 
 class UserRegistrationViewSet(viewsets.ModelViewSet):
+    """viewset for users registration"""
     queryset = CustomUser.objects.all()
     serializer_class = UserRegistrationSerializer
     permission_classes = [permissions.AllowAny]
