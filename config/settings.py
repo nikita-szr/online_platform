@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'courses',
     'django_filters',
     'drf_yasg',
+    'django_celery_beat',
+
 ]
 
 MIDDLEWARE = [
@@ -161,3 +163,16 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_TIMEZONE = "Russia/Moscow"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
+
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'online_platform.tasks.block_user',
+        'schedule': timedelta(minutes=10),
+    },
+}

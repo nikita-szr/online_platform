@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .paginators import CustomPageNumberPagination
+from courses.tasks import subscription_message
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -26,6 +27,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         if self.request.user.groups.filter(name='moderators').exists():
             return Course.objects.all()
         return Course.objects.filter(owner=self.request.user)
+
+    def perform_update(self, serializer):
+        update_course = serializer.save()
+        subscriptions = Subscription.objects.filter(course=update_course)
+        for subscription in subscriptions:
+            subscription_message.delay(update_course.title, subscription.user.email)
+        update_course.save()
 
 
 class LessonViewSet(viewsets.ModelViewSet):
