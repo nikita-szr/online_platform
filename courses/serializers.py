@@ -35,5 +35,3 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         model = Subscription
         fields = ['id', 'user', 'course', 'created_at']
         read_only_fields = ['user', 'created_at']
-
-

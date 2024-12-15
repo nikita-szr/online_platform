@@ -6,4 +6,3 @@ class IsOwnerOrModerator(BasePermission):
         if request.user.groups.filter(name='moderators').exists():
             return True
         return obj.owner == request.user
-
