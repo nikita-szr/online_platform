@@ -47,7 +47,7 @@ jobs:
         NAME: online_platform
         USER: postgres
         PASSWORD: nikittik
-        HOST: localhost
+        HOST: postgres
       run: |
         source venv/bin/activate
         python manage.py test
