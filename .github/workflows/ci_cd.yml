@@ -44,7 +44,10 @@ jobs:
 
     - name: Run tests
       env:
-        DATABASE_URL: postgres://user:password@localhost:5432/mydb
+        NAME: online_platform
+        USER: postgres
+        PASSWORD: nikittik
+        HOST: localhost
       run: |
         source venv/bin/activate
         python manage.py test
