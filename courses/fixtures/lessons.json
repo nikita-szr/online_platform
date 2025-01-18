@@ -1,0 +1,11 @@
+[
+  {
+    "model": "courses.lesson",
+    "pk": 1,
+    "fields": {
+      "title": "Урок 1: Введение в Python",
+      "description": "Основы программирования на Python",
+      "course": 1
+    }
+  }
+]
